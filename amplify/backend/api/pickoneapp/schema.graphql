@@ -1,0 +1,8 @@
+type Question @model {
+  id: ID!
+  question: String!
+  option1: String
+  count1: Int
+  option2: String
+  count2: Int
+}
