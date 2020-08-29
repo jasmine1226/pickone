@@ -16,5 +16,13 @@
 				}
 			}
 		}
+	},
+	"auth": {
+		"pickone310ce68b": {
+			"service": "Cognito",
+			"providerPlugin": "awscloudformation",
+			"dependsOn": [],
+			"customAuth": false
+		}
 	}
 }
