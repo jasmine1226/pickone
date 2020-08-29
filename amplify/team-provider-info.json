@@ -10,11 +10,6 @@
             "StackName": "amplify-pickone-dev-123600",
             "StackId": "arn:aws:cloudformation:us-west-2:882362097427:stack/amplify-pickone-dev-123600/5fbb0830-e7d3-11ea-ae83-0a25a13ca77a",
             "AmplifyAppId": "d2vq2zp65lvcfs"
-        },
-        "categories": {
-            "auth": {
-                "pickone310ce68b": {}
-            }
         }
     }
 }

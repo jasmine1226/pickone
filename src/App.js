@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 import { API, Storage } from "aws-amplify";
-import { withAuthenticator, AmplifySignOut } from "@aws-amplify/ui-react";
 import { listQuestions } from "./graphql/queries";
 import {
   createQuestion as createQuestionMutation,
@@ -102,9 +101,8 @@ function App() {
           </div>
         ))}
       </div>
-      <AmplifySignOut />
     </div>
   );
 }
 
-export default withAuthenticator(App);
+export default App;
