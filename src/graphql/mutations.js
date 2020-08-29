@@ -13,6 +13,7 @@ export const createQuestion = /* GraphQL */ `
       count1
       option2
       count2
+      image
       createdAt
       updatedAt
     }
@@ -30,6 +31,7 @@ export const updateQuestion = /* GraphQL */ `
       count1
       option2
       count2
+      image
       createdAt
       updatedAt
     }
@@ -47,6 +49,7 @@ export const deleteQuestion = /* GraphQL */ `
       count1
       option2
       count2
+      image
       createdAt
       updatedAt
     }

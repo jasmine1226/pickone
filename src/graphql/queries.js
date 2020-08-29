@@ -10,6 +10,7 @@ export const getQuestion = /* GraphQL */ `
       count1
       option2
       count2
+      image
       createdAt
       updatedAt
     }
@@ -29,6 +30,7 @@ export const listQuestions = /* GraphQL */ `
         count1
         option2
         count2
+        image
         createdAt
         updatedAt
       }

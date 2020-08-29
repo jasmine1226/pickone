@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
-import { API } from "aws-amplify";
+import { API, Storage } from "aws-amplify";
 import { withAuthenticator, AmplifySignOut } from "@aws-amplify/ui-react";
 import { listQuestions } from "./graphql/queries";
 import {
@@ -18,8 +18,27 @@ function App() {
     fetchQuestions();
   }, []);
 
+  async function onChange(e) {
+    if (!e.target.files[0]) return;
+    const file = e.target.files[0];
+    setFormData({ ...formData, image: file.name });
+    await Storage.put(file.name, file);
+    fetchQuestions();
+  }
+
   async function fetchQuestions() {
     const apiData = await API.graphql({ query: listQuestions });
+    const questionsFromAPI = apiData.data.listQuestions.items;
+    setQuestions(apiData.data.listQuestions.items);
+    await Promise.all(
+      questionsFromAPI.map(async (question) => {
+        if (question.image) {
+          const image = await Storage.get(question.image);
+          question.image = image;
+        }
+        return question;
+      })
+    );
     setQuestions(apiData.data.listQuestions.items);
   }
 
@@ -29,6 +48,10 @@ function App() {
       query: createQuestionMutation,
       variables: { input: formData },
     });
+    if (formData.image) {
+      const image = await Storage.get(formData.image);
+      formData.image = image;
+    }
     setQuestions([...questions, formData]);
     setFormData(initialFormState);
   }
@@ -62,6 +85,7 @@ function App() {
         placeholder="option2"
         value={formData.option2}
       />
+      <input type="file" onChange={onChange} />
       <button onClick={createQuestion}>Create Question</button>
       <div style={{ marginBottom: 30 }}>
         {questions.map((question) => (
@@ -72,6 +96,9 @@ function App() {
             <button onClick={() => deleteQuestion(question)}>
               Delete question
             </button>
+            {question.image && (
+              <img src={question.image} style={{ width: 400 }} />
+            )}
           </div>
         ))}
       </div>
